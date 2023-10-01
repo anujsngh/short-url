@@ -21,7 +21,7 @@ def extract_domain_url(url):
         return None
 
 
-def generate_tinyURL(long_url:str, squish=False):
+def generate_short_URL(long_url:str, squish=False):
     """
     
     """
@@ -34,7 +34,7 @@ def generate_tinyURL(long_url:str, squish=False):
 
     # Select characters randomely and join chars till 
     # defined length is achieved.
-    tiny_str = "".join([random.choice(lower_chars) for _ in range(str_len)])
+    short_str = "".join([random.choice(lower_chars) for _ in range(str_len)])
 
     # Extract domain url from the long url.
     domain_url  = extract_domain_url(long_url)
@@ -42,7 +42,7 @@ def generate_tinyURL(long_url:str, squish=False):
     # Check if squish is true or not.
     if squish:
         # Return the mask for long url.
-        return "https://www.tinyURL.com" + "/" + tiny_str
+        return "https://www.shorturl.com" + "/" + tiny_str
     else:
         # Return the domain url with random string attached in the end as 
         # mask for long url.
