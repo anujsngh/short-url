@@ -1,29 +1,11 @@
 import string
 import random
-import re
-
-
-def extract_domain_url(url):
-    """
-    URL extractor function to extract domain URL of a given URL.
-    """
-    # Define a regex pattern to extract the parent URL
-    pattern = r'^(https?://[^/]+)'
-    
-    # Use re.search to find the match
-    match = re.search(pattern, url)
-    
-    # Check if a match was found
-    if match:
-        domain_url = match.group(1)
-        return domain_url
-    else:
-        return None
+import utils
 
 
 def generate_short_url(long_url:str, squish_url=False):
     """
-    
+    Function to create short url from long url.
     """
     # Generate a random integer value between 6 to 10 
     # to decide length  of random string.
@@ -37,16 +19,49 @@ def generate_short_url(long_url:str, squish_url=False):
     short_str = "".join([random.choice(lower_chars) for _ in range(str_len)])
 
     # Extract domain url from the long url.
-    domain_url  = extract_domain_url(long_url)
+    domain_url  = utils.extract_domain_url(long_url)
 
     # Check if squish is true or not.
     if squish_url:
         # Return the mask for long url.
-        return "https://www.shorturl.com" + "/" + tiny_str
+        short_url =  "https://www.shorturl.com" + "/" + short_str
     else:
         # Return the domain url with random string attached in the end as 
         # mask for long url.
-        return domain_url + "/" + tiny_str
+        short_url =  domain_url + "/" + short_str
+
+    save_short_to_long_url(short_url, long_url)
+    save_long_to_short_url(short_url, long_url)
+
+    return short_url
+    
+
+def save_short_to_long_url(short_url, long_url):
+    urls = utils.load_from_json(file_name="short_to_long.json")
+
+    if urls is None:
+        urls = {
+            short_url: long_url
+        }
+        utils.save_to_json(data=urls, file_name="short_to_long.json")
+    else:
+        if short_url not in urls:
+            urls[short_url] = long_url
+            utils.save_to_json(data=urls, file_name="short_to_long.json")
+
+
+def save_long_to_short_url(short_url, long_url):
+    urls = utils.load_from_json(file_name="long_to_short.json")
+
+    if urls is None:
+        urls = {
+            long_url: short_url
+        }
+        utils.save_to_json(data=urls, file_name="long_to_short.json")
+    else:
+        if long_url not in urls:
+            urls[long_url] = short_url
+            utils.save_to_json(data=urls, file_name="long_to_short.json")
 
 
 if __name__ == "__main__":
