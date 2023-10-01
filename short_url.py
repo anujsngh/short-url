@@ -21,7 +21,7 @@ def extract_domain_url(url):
         return None
 
 
-def generate_short_URL(long_url:str, squish=False):
+def generate_short_url(long_url:str, squish_url=False):
     """
     
     """
@@ -40,7 +40,7 @@ def generate_short_URL(long_url:str, squish=False):
     domain_url  = extract_domain_url(long_url)
 
     # Check if squish is true or not.
-    if squish:
+    if squish_url:
         # Return the mask for long url.
         return "https://www.shorturl.com" + "/" + tiny_str
     else:
@@ -51,7 +51,7 @@ def generate_short_URL(long_url:str, squish=False):
 
 if __name__ == "__main__":
     # test 0
-    print(generate_tinyURL("https://www.google.com/update/new"))
+    print(generate_short_url("https://www.google.com/update/new"))
 
     # test 1
-    print(generate_tinyURL("https://www.office.microsoft.com/services/powerpoint/create/new_ppt", squish=True))
+    print(generate_short_url("https://www.office.microsoft.com/services/powerpoint/create/new_ppt", squish=True))
