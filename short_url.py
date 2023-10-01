@@ -54,4 +54,4 @@ if __name__ == "__main__":
     print(generate_short_url("https://www.google.com/update/new"))
 
     # test 1
-    print(generate_short_url("https://www.office.microsoft.com/services/powerpoint/create/new_ppt", squish=True))
+    print(generate_short_url("https://www.office.microsoft.com/services/powerpoint/create/new_ppt", squish_url=True))
