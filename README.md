@@ -1,3 +1,3 @@
-# short-url
+# shortURL
 
-Simple clone of basic functionality of tinyURL.
+clone of basic functionality of tinyURL service.
